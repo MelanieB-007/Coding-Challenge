@@ -16,22 +16,30 @@ const data = [
     }
 ]
 
-const result = {
-    online: [],
-    offline: [],
-    away: []
-};
-
-data.forEach(user => {
-    if (user.status === 'online') {
-        if (user.lastActivity > 10) {
-            result.away.push(user.username);
-        } else {
-            result.online.push(user.username);
-        }
-    } else if (user.status === 'offline') {
-        result.offline.push(user.username);
+function getUsersStatus(data) {
+    if (!data || data.length === 0) {
+        return {};
     }
-});
 
-console.log(result);
+    const result = {
+        online: [],
+        offline: [],
+        away: []
+    };
+
+    data.forEach(user => {
+        if (user.status === 'online') {
+            if (user.lastActivity > 10) {
+                result.away.push(user.username);
+            } else {
+                result.online.push(user.username);
+            }
+        } else if (user.status === 'offline') {
+            result.offline.push(user.username);
+        }
+    });
+
+    return result;
+}
+
+console.log(getUsersStatus(data));
